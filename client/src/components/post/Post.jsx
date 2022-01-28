@@ -11,7 +11,7 @@ export default function Post({ post, setRefetch }) {
 
   const [user, setUser] = useState({});
   const [seconds, setSeconds] = useState(
-    30 - moment().diff(post.countDown, "seconds")
+    60 - moment().diff(post.countDown, "seconds")
   );
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
@@ -37,8 +37,12 @@ export default function Post({ post, setRefetch }) {
   useEffect(() => {
     let myInterval = setInterval(() => {
       setSeconds(
-        30 - moment().diff(post.countDown, "seconds") + secondsMultiplier * 30
+        60 - moment().diff(post.countDown, "seconds") + secondsMultiplier * 30
       );
+      // Example:
+      // if time is 8:00:30 and post was save at 8:00:20
+      // the diff is 10 seconds and should show 50 seconds remaining
+      // the result would be 60 - moment().diff(post.cou.....
     }, 1000);
     return () => {
       clearInterval(myInterval);
